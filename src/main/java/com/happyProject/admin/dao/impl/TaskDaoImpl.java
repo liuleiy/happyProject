@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import com.happyProject.admin.dao.TaskDao;
 import com.happyProject.admin.model.PageBean;
 import com.happyProject.admin.model.Task;
-import com.happyProject.admin.utlis.DateFormat;
 @Repository
 public class TaskDaoImpl implements TaskDao{
 	@Resource
@@ -65,7 +62,7 @@ public class TaskDaoImpl implements TaskDao{
 	@Override
 	public PageBean<Task> findByDataAndCount(Integer currentPage, Integer pageSize, Long startTime, Long endTime) {
 		
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -90,7 +87,7 @@ public class TaskDaoImpl implements TaskDao{
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		Criteria criatira = new Criteria();
 		Criteria tCriatira = new Criteria();

@@ -182,6 +182,365 @@ public class FinancialController {
 		return modelMap;
 	}
 
+	@PostMapping("/allRevenue")
+	public @ResponseBody ModelMap allRevenue() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// publicLog(map,start_time, last_time, 48);
+		Date time = new Date();
+		int monthNumber = DateFormat.getMonthNumber(time);
+		int m = 0 - monthNumber;
+		// 1. 抽水,今天
+		long todayPump = 0;
+		List<LogCoin> cdate = coinServiceImpl.getTimePump(0, 1, 48, time);
+		for (LogCoin logCoin : cdate) {
+			Integer num = Math.abs(logCoin.getNum());
+			todayPump += num;
+		}
+		// 2. 抽水,昨天
+		long yesterdayPump = 0;
+		List<LogCoin> cdate2 = coinServiceImpl.getTimePump(-1, 0, 48, time);
+		for (LogCoin logCoin : cdate2) {
+			Integer num = Math.abs(logCoin.getNum());
+			yesterdayPump += num;
+		}
+
+		// 3.总抽水
+		long pump = 0;
+		List<LogCoin> cdate3 = coinServiceImpl.getTimePump(null, null, 48, time);
+		for (LogCoin logCoin : cdate3) {
+			Integer num = Math.abs(logCoin.getNum());
+			pump += num;
+		}
+
+		// 4.抽水,本月
+		long monthPump = 0;
+		List<LogCoin> cdate4 = coinServiceImpl.getTimePump(m, 0, 48, time);
+		for (LogCoin logCoin : cdate4) {
+			Integer num = Math.abs(logCoin.getNum());
+			monthPump += num;
+		}
+
+		// 1. 机器人今日营收
+		long robotRevenueToday = 0;
+		List<RoomResultRecord> timeRevenue = roomResultRecordServiceImpl.getTimeRevenue(0, 1, time, null, null);
+		for (RoomResultRecord roleRecord : timeRevenue) {
+			String userid = roleRecord.getUserid();
+			ColUser colUser = colUserService.findById(userid, new ColUser());
+			if (colUser != null) {
+				boolean robot = colUser.isRobot();
+				if (robot) {
+					Integer score = roleRecord.getScore();
+					robotRevenueToday += score;
+				}
+			}
+		}
+
+		// 2.机器人昨日营收
+		long robotRevenueYesterday = 0;
+		List<RoomResultRecord> timeRevenue2 = roomResultRecordServiceImpl.getTimeRevenue(-1, 0, time, null, null);
+		for (RoomResultRecord roleRecord : timeRevenue2) {
+			String userid = roleRecord.getUserid();
+			ColUser colUser = colUserService.findById(userid, new ColUser());
+			if (colUser != null) {
+				boolean robot = colUser.isRobot();
+				if (robot) {
+					Integer score = roleRecord.getScore();
+					robotRevenueYesterday += score;
+				}
+			}
+		}
+		// 3.机器人总营收
+		long robotRevenue = 0;
+		List<RoomResultRecord> timeRevenue3 = roomResultRecordServiceImpl.getTimeRevenue(null, null, time, null, null);
+		for (RoomResultRecord roleRecord : timeRevenue3) {
+			String userid = roleRecord.getUserid();
+			ColUser colUser = colUserService.findById(userid, new ColUser());
+			if (colUser != null) {
+				boolean robot = colUser.isRobot();
+				if (robot) {
+					Integer score = roleRecord.getScore();
+					robotRevenue += score;
+				}
+			}
+		}
+
+		// 4.机器人本月营收
+		long robotRevenueMonth = 0;
+		List<RoomResultRecord> timeRevenue4 = roomResultRecordServiceImpl.getTimeRevenue(m, 0, time, null, null);
+		for (RoomResultRecord roleRecord : timeRevenue4) {
+			String userid = roleRecord.getUserid();
+			ColUser colUser = colUserService.findById(userid, new ColUser());
+			if (colUser != null) {
+				boolean robot = colUser.isRobot();
+				if (robot) {
+					Integer score = roleRecord.getScore();
+					robotRevenueMonth += score;
+				}
+			}
+		}
+		// 1.活动奖励,今天
+		long todayActivity = 0;
+		List<LogCoin> todayActivity55 = coinServiceImpl.getTimePump(0, 1, 57, time);
+		for (LogCoin logCoin : todayActivity55) {
+			Integer num = logCoin.getNum();
+			todayActivity += num;
+		}
+		List<LogCoin> todayActivity56 = coinServiceImpl.getTimePump(0, 1, 58, time);
+		for (LogCoin logCoin : todayActivity56) {
+			Integer num = logCoin.getNum();
+			todayActivity += num;
+		}
+		List<LogCoin> todayActivity57 = coinServiceImpl.getTimePump(0, 1, 59, time);
+		for (LogCoin logCoin : todayActivity57) {
+			Integer num = logCoin.getNum();
+			todayActivity += num;
+		}
+		// 2.活动奖励,昨天
+		long yesterdayActivity = 0;
+		List<LogCoin> yesterdayActivity55 = coinServiceImpl.getTimePump(-1, 0, 57, time);
+		for (LogCoin logCoin : yesterdayActivity55) {
+			Integer num = logCoin.getNum();
+			yesterdayActivity += num;
+		}
+		List<LogCoin> yesterdayActivity56 = coinServiceImpl.getTimePump(-1, 0, 58, time);
+		for (LogCoin logCoin : yesterdayActivity56) {
+			Integer num = logCoin.getNum();
+			yesterdayActivity += num;
+		}
+		List<LogCoin> yesterdayActivity57 = coinServiceImpl.getTimePump(-1, 0, 59, time);
+		for (LogCoin logCoin : yesterdayActivity57) {
+			Integer num = logCoin.getNum();
+			yesterdayActivity += num;
+		}
+		// 3.活动奖励,总
+		long activity = 0;
+		List<LogCoin> activity55 = coinServiceImpl.getTimePump(null, null, 57, time);
+		for (LogCoin logCoin : activity55) {
+			Integer num = logCoin.getNum();
+			activity += num;
+		}
+		List<LogCoin> activity56 = coinServiceImpl.getTimePump(null, null, 58, time);
+		for (LogCoin logCoin : activity56) {
+			Integer num = logCoin.getNum();
+			activity += num;
+		}
+		List<LogCoin> activity57 = coinServiceImpl.getTimePump(null, null, 59, time);
+		for (LogCoin logCoin : activity57) {
+			Integer num = logCoin.getNum();
+			activity += num;
+		}
+		// 4.活动奖励,当月,Month
+		long activityMonth = 0;
+		List<LogCoin> activityMonth55 = coinServiceImpl.getTimePump(m, 1, 57, time);
+		for (LogCoin logCoin : activityMonth55) {
+			Integer num = logCoin.getNum();
+			activityMonth += num;
+		}
+		List<LogCoin> activityMonth56 = coinServiceImpl.getTimePump(m, 1, 58, time);
+		for (LogCoin logCoin : activityMonth56) {
+			Integer num = logCoin.getNum();
+			activityMonth += num;
+		}
+		List<LogCoin> activityMonth57 = coinServiceImpl.getTimePump(m, 1, 59, time);
+		for (LogCoin logCoin : activityMonth57) {
+			Integer num = logCoin.getNum();
+			activityMonth += num;
+		}
+
+		// 1.三级收益,今天
+		long todayThreeLevel = 0;
+		List<LogCoin> todayThree = coinServiceImpl.getTimePump(0, 1, 52, time);
+		for (LogCoin logCoin : todayThree) {
+			Integer num = logCoin.getNum();
+			todayThreeLevel += num;
+		}
+		// 2.三级收益,昨天
+		long yesterdayThreeLevel = 0;
+		List<LogCoin> yesterdayThree = coinServiceImpl.getTimePump(-1, 0, 52, time);
+		for (LogCoin logCoin : yesterdayThree) {
+			Integer num = logCoin.getNum();
+			yesterdayThreeLevel += num;
+		}
+		// 3.三级收益,总
+		long threeLevel = 0;
+		List<LogCoin> three = coinServiceImpl.getTimePump(null, null, 52, time);
+		for (LogCoin logCoin : three) {
+			Integer num = logCoin.getNum();
+			threeLevel += num;
+		}
+		// 4.三级收益,当月
+		long monthThreeLevel = 0;
+		List<LogCoin> monthThree = coinServiceImpl.getTimePump(m, 1, 52, time);
+		for (LogCoin logCoin : monthThree) {
+			Integer num = logCoin.getNum();
+			monthThreeLevel += num;
+		}
+
+		// 1.区域奖励,今天
+		long todayRegion = 0;
+		List<LogCoin> todayRegions = coinServiceImpl.getTimePump(0, 1, 53, time);
+		for (LogCoin logCoin : todayRegions) {
+			Integer num = logCoin.getNum();
+			todayRegion += num;
+		}
+		// 2.区域奖励,昨天
+		long yesterdayRegion = 0;
+		List<LogCoin> yesterdayRegions = coinServiceImpl.getTimePump(-1, 0, 53, time);
+		for (LogCoin logCoin : yesterdayRegions) {
+			Integer num = logCoin.getNum();
+			yesterdayRegion += num;
+		}
+		// 3.区域奖励,总
+		long region = 0;
+		List<LogCoin> regions = coinServiceImpl.getTimePump(null, null, 53, time);
+		for (LogCoin logCoin : regions) {
+			Integer num = logCoin.getNum();
+			region += num;
+		}
+		// 4.区域奖励,当月
+		long monthRegion = 0;
+		List<LogCoin> monthRegions = coinServiceImpl.getTimePump(m, 1, 53, time);
+		for (LogCoin logCoin : monthRegions) {
+			Integer num = logCoin.getNum();
+			monthRegion += num;
+		}
+
+		// 1.幸运星,今天
+		long todayLucky = 0;
+		List<LogCoin> todayLuckys = coinServiceImpl.getTimePump(0, 1, 51, time);
+		for (LogCoin logCoin : todayLuckys) {
+			Integer num = logCoin.getNum();
+			todayLucky += num;
+		}
+		// 2.幸运星,昨天
+		long yesterdayLucky = 0;
+		List<LogCoin> yesterdayLuckys = coinServiceImpl.getTimePump(-1, 0, 51, time);
+		for (LogCoin logCoin : yesterdayLuckys) {
+			Integer num = logCoin.getNum();
+			yesterdayLucky += num;
+		}
+		// 3.幸运星,总
+		long lucky = 0;
+		List<LogCoin> luckys = coinServiceImpl.getTimePump(null, null, 51, time);
+		for (LogCoin logCoin : luckys) {
+			Integer num = logCoin.getNum();
+			lucky += num;
+		}
+		// 4.幸运星,当月
+		long monthLucky = 0;
+		List<LogCoin> monthLuckys = coinServiceImpl.getTimePump(m, 1, 51, time);
+		for (LogCoin logCoin : monthLuckys) {
+			Integer num = logCoin.getNum();
+			monthLucky += num;
+		}
+
+		// 1.任务奖励,今天
+		long todayTask = 0;
+		List<LogCoin> todayTasks = coinServiceImpl.getTimePump(0, 1, 46, time);
+		for (LogCoin logCoin : todayTasks) {
+			Integer num = logCoin.getNum();
+			todayTask += num;
+		}
+		// 2.任务奖励,昨天
+		long yesterdayTask = 0;
+		List<LogCoin> yesterdayTasks = coinServiceImpl.getTimePump(-1, 0, 46, time);
+		for (LogCoin logCoin : yesterdayTasks) {
+			Integer num = logCoin.getNum();
+			yesterdayTask += num;
+		}
+		// 3.任务奖励,总
+		long task = 0;
+		List<LogCoin> tasks = coinServiceImpl.getTimePump(null, null, 46, time);
+		for (LogCoin logCoin : tasks) {
+			Integer num = logCoin.getNum();
+			task += num;
+		}
+		// 4.任务奖励,当月
+		long monthTask = 0;
+		List<LogCoin> monthTasks = coinServiceImpl.getTimePump(m, 1, 46, time);
+		for (LogCoin logCoin : monthTasks) {
+			Integer num = logCoin.getNum();
+			monthTask += num;
+		}
+
+		// 1.连续登录奖励,今天
+		long todayLogin = 0;
+		List<LogCoin> todayLogins = coinServiceImpl.getTimePump(0, 1, 47, time);
+		for (LogCoin logCoin : todayLogins) {
+			Integer num = logCoin.getNum();
+			todayLogin += num;
+		}
+		// 2.连续登录奖励,昨天
+		long yesterdayLogin = 0;
+		List<LogCoin> yesterdayLogins = coinServiceImpl.getTimePump(-1, 0, 47, time);
+		for (LogCoin logCoin : yesterdayLogins) {
+			Integer num = logCoin.getNum();
+			yesterdayLogin += num;
+		}
+		// 3.连续登录奖励,总
+		long login = 0;
+		List<LogCoin> logins = coinServiceImpl.getTimePump(null, null, 47, time);
+		for (LogCoin logCoin : logins) {
+			Integer num = logCoin.getNum();
+			login += num;
+		}
+		// 4.连续登录奖励,当月
+		long monthLogin = 0;
+		List<LogCoin> monthLogins = coinServiceImpl.getTimePump(m, 1, 47, time);
+		for (LogCoin logCoin : monthLogins) {
+			Integer num = logCoin.getNum();
+			monthLogin += num;
+		}
+		// 1.绑定奖金,邀请,今天
+		long todayInvitation = 0;
+		List<LogCoin> todayInvitations = coinServiceImpl.getTimePump(0, 1, 55, time);
+		for (LogCoin logCoin : todayInvitations) {
+			Integer num = logCoin.getNum();
+			todayInvitation += num;
+		}
+		// 2.绑定奖金,邀请,昨天
+		long yesterdayInvitation = 0;
+		List<LogCoin> yesterdayInvitations = coinServiceImpl.getTimePump(-1, 0, 55, time);
+		for (LogCoin logCoin : yesterdayInvitations) {
+			Integer num = logCoin.getNum();
+			yesterdayInvitation += num;
+		}
+		// 3.绑定奖金,邀请,总
+		long invitation = 0;
+		List<LogCoin> invitations = coinServiceImpl.getTimePump(null, null, 55, time);
+		for (LogCoin logCoin : invitations) {
+			Integer num = logCoin.getNum();
+			invitation += num;
+		}
+		// 4.绑定奖金,邀请,当月
+		long monthInvitation = 0;
+		List<LogCoin> monthInvitations = coinServiceImpl.getTimePump(m, 1, 55, time);
+		for (LogCoin logCoin : monthInvitations) {
+			Integer num = logCoin.getNum();
+			monthInvitation += num;
+		}
+		// as
+		// 总营收 = 抽水 + 机器人赢收 - 活动奖励 - 三级收益 - 区域奖励 - 幸运星 - 任务奖励 - 连续登陆奖励 - 邀请
+		long all = pump + robotRevenue - activity - threeLevel - region - lucky - task - login - invitation;
+		// 今日总营收
+		long t = todayPump + robotRevenueToday - todayActivity - todayThreeLevel - todayRegion - todayLucky - todayTask
+				- todayLogin - todayInvitation;
+		// 昨日总营收
+		long y = yesterdayPump + robotRevenueYesterday - yesterdayActivity - yesterdayThreeLevel - yesterdayRegion
+				- yesterdayLucky - yesterdayTask - yesterdayLogin - yesterdayInvitation;
+		// 本月总营收
+		long mp = monthPump + robotRevenueMonth - activityMonth - monthThreeLevel - monthRegion - monthLucky - monthTask
+				- monthLogin - monthInvitation;
+		// 营收
+		map.put("all", all);
+		map.put("t", t);
+		map.put("y", y);
+		map.put("mp", mp);
+		ModelMap modelMap = new ModelMap();
+		modelMap.put("data", map);
+		return modelMap;
+	}
+
 	// reportform
 	@RequiresPermissions("revenueStatement.list")
 	@PostMapping("/reportform")

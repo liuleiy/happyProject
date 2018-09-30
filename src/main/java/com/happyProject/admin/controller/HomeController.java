@@ -316,7 +316,9 @@ public class HomeController {
 			Map<String, Object> m = new HashMap<String, Object>();
 			m.put("日期", orderWeekNumber.getWeek());
 			m.put("订单数", orderWeekNumber.getNumber());
-			m.put("订单金额", orderWeekNumber.getMoney()/100);
+//			Double money = orderWeekNumber.getMoney();
+//			Double money2 = money/(double) 100;
+			m.put("订单金额", orderWeekNumber.getMoney());
 			list.add(m);
 		}
 		String[] key = { "日期", "订单数", "订单金额" };

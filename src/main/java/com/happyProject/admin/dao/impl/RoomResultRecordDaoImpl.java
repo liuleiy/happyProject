@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +64,7 @@ public class RoomResultRecordDaoImpl implements RoomResultRecordDao {
 	@Override
 	public PageBean<RoomResultRecord> findByDataAndCount(String userid, Integer currentPage, Integer pageSize,
 			Long startTime, Long endTime) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -91,7 +89,7 @@ public class RoomResultRecordDaoImpl implements RoomResultRecordDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		Criteria criatira = new Criteria();
 		Criteria uCriatira = new Criteria();

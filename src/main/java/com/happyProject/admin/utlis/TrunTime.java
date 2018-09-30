@@ -1,14 +1,11 @@
 package com.happyProject.admin.utlis;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class TrunTime {
 
 	public static Date setTime(Date time , String format){
-		if(time==null){
+		/*if(time==null){
 			return null;
 		}
 		try {
@@ -19,9 +16,9 @@ public class TrunTime {
 			return date;
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
-		return null;
+		return time;
 	}
 	
 }

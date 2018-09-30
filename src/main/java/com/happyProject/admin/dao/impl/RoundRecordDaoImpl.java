@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +64,7 @@ public class RoundRecordDaoImpl implements RoundRecordDao {
 	@Override
 	public PageBean<RoundRecord> findByDataAndCount(Integer currentPage, Integer pageSize, Long startTime, Long endTime,
 			String roomid) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -91,7 +89,7 @@ public class RoundRecordDaoImpl implements RoundRecordDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		Criteria criatira = new Criteria();
 		Criteria tCriatira = new Criteria();
 		Criteria rCriatira = new Criteria();
@@ -142,12 +140,11 @@ public class RoundRecordDaoImpl implements RoundRecordDao {
 		Date nextDay0 = DateFormat.getNextDay(
 				new Date(), 1, "yyyy-MM-dd HH", false);
 		
-		Date toDay = DateFormat.fmtTimeZone(toDay0, -12, "yyyy-MM-dd HH", false);
-		Date nextDay = DateFormat.fmtTimeZone(nextDay0, -12, "yyyy-MM-dd HH", false);
-		//System.out.println("today:"+toDay);
-		//System.out.println("nextDay:"+nextDay);
+		//Date toDay = DateFormat.fmtTimeZone(toDay0, -12, "yyyy-MM-dd HH", false);
+		//Date nextDay = DateFormat.fmtTimeZone(nextDay0, -12, "yyyy-MM-dd HH", false);
+		
 		Query query = new Query();
-		query.addCriteria(Criteria.where("ctime").gte(toDay).lt(nextDay));
+		query.addCriteria(Criteria.where("ctime").gte(toDay0).lt(nextDay0));
 		//query.with(new Sort(Direction.ASC, "userid"));//升序
 		
 		List<RoundRecord> find = mongoTemplate.find(query, RoundRecord.class);

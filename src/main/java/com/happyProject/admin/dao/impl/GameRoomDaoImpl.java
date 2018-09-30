@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import com.happyProject.admin.dao.GameRoomDao;
 import com.happyProject.admin.model.GameRoom;
 import com.happyProject.admin.model.PageBean;
-import com.happyProject.admin.utlis.DateFormat;
 
 @Repository
 public class GameRoomDaoImpl implements GameRoomDao {
@@ -67,7 +64,7 @@ public class GameRoomDaoImpl implements GameRoomDao {
 	@Override
 	public PageBean<GameRoom> findByDataAndCount(String name, Integer currentPage, Integer pageSize, Long startTime,
 			Long endTime, Integer del) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -92,7 +89,7 @@ public class GameRoomDaoImpl implements GameRoomDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		Criteria criatira = new Criteria();
 		Criteria nCriatira = new Criteria();
 		Criteria tCriatira = new Criteria();

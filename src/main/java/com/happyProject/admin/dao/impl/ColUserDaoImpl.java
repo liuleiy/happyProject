@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +72,7 @@ public class ColUserDaoImpl implements ColUserDao {
 	public PageBean<ColUser> findByDataAndCount(String iid, String nickname, Integer agent_level, Integer currentPage,
 			Integer pageSize, Long startTime, Long endTime, String agent, String start_profit, String last_profit,
 			String start_bring_profit, String last_bring_profit, Integer rtypeValue,String arrangement) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -99,7 +97,7 @@ public class ColUserDaoImpl implements ColUserDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		Criteria criatira = new Criteria();
 		Criteria iCriatira = new Criteria();
 		Criteria nCriatira = new Criteria();

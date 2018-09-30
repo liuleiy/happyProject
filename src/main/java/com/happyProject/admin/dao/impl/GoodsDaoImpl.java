@@ -1,7 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import com.happyProject.admin.base.dao.impl.BaseDaoImpl;
 import com.happyProject.admin.dao.GoodsDao;
 import com.happyProject.admin.model.Goods;
 import com.happyProject.admin.model.PageBean;
-import com.happyProject.admin.utlis.DateFormat;
 
 @Repository
 public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements GoodsDao {
@@ -28,7 +25,7 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements GoodsDao {
 	@Override
 	public PageBean<Goods> findByDataAndCount(String name, Integer currentPage, Integer pageSize, Long startTime,
 			Long endTime,Integer del) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -53,7 +50,7 @@ public class GoodsDaoImpl extends BaseDaoImpl<Goods> implements GoodsDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		Criteria criatira = new Criteria();
 		Criteria nCriatira = new Criteria();

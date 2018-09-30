@@ -1,6 +1,5 @@
 package com.happyProject.admin.dao.impl;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +66,7 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public PageBean<Order> findByDataAndCount(String userid, Integer currentPage, Integer pageSize, Long startTime,
 			Long endTime, Integer result) {
-		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		/*SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(startTime!=null) {
 			Date state = new Date(startTime);
 			String startStr = s.format(state);
@@ -92,7 +91,7 @@ public class OrderDaoImpl implements OrderDao {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		Criteria criatira = new Criteria();
 		Criteria uCriatira = new Criteria();
 		Criteria tCriatira = new Criteria();

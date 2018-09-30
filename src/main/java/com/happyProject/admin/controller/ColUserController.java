@@ -726,27 +726,29 @@ public class ColUserController {
 		Integer agent_state = colUser.getAgent_state();
 		Integer profit_rate_sum = colUser.getProfit_rate_sum();
 		Integer agent_level = colUser.getAgent_level();
+		
+		String mes = "设置成功";
 		ModelMap modelMap = new ModelMap();
 		if(!"".equals(agent)&&agent_state==1&&profit_rate_sum==0){//普通代理,agent !=""
 			//先清空agent
 			SendTheRequest.setAgent(iid,"");
 			SendTheRequest.setPartner(iid);
 			SendTheRequest.setRate(iid, 23);
-			modelMap.put("message", "设置成功");
+			mes = "设置成功";
 		}else if(!"".equals(agent)&&agent_state==1&&profit_rate_sum!=0){//大代理
 			//先清空agent
 			SendTheRequest.setAgent(iid,"");
 			SendTheRequest.setPartner(iid);
 			SendTheRequest.setRate(iid, 23);
-			modelMap.put("message", "设置成功");
+			mes = "设置成功";
 		}
 		else if("".equals(agent)&&agent_state==1&&agent_level==1){//合伙人
-			modelMap.put("message", "已经是合伙人");
+			mes = "已经是合伙人";
 		}else if("".equals(agent)&&(agent_state!=1||agent_level==0)){//玩家
 			SendTheRequest.setAgent(iid,"");
 			SendTheRequest.setPartner(iid);
 			SendTheRequest.setRate(iid, 23);
-			modelMap.put("message", "设置成功");
+			mes = "设置成功";
 		}
 		/*if ("".equals(agent)) {// 玩家
 			SendTheRequest.setPartner(iid);
@@ -757,6 +759,7 @@ public class ColUserController {
 			SendTheRequest.setPartner(iid);
 			modelMap.put("message", "设置成功");
 		}*/
+		modelMap.put("message", mes);
 		return modelMap;
 	}
 
