@@ -22,10 +22,18 @@ import com.happyProject.admin.model.ShopSend;
 import com.happyProject.admin.model.TaskSend;
 
 public class SendTheRequest {
+	//测试
+	//private static String url = "http://127.0.0.1/happydev/webjson";
+	
+	//正式
 	private static String url = "http://127.0.0.1/happy/webjson";
 
-	// private static String url = "http://huandou8.top/happy/webjson";
+	//测试
+	//private static String url = "http://huandou8.top/happydev/webjson";
 
+	//正式
+	//private static String url = "http://bbbbvb.cn/happy/webjson";
+	
 	public static String getJsonData(JSONObject jsonParam, String urls) {
 		StringBuffer sb = new StringBuffer();
 		try {
@@ -266,8 +274,8 @@ public class SendTheRequest {
 		 */
 
 		// 发送金币
-		// SendTheRequest.crud(4, 0, "id1", new PayCurrency("104242", null,
-		// 2000, null, null, null, null));
+		 SendTheRequest.crud(4, 0, "id1", new PayCurrency("114726", null,
+		 1, null, null, null, null));
 
 		// 设置代理
 		// SendTheRequest.setAgent("");
